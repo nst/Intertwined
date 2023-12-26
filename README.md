@@ -39,7 +39,7 @@ __Control points logic__
  
 When not set by the caller, control points are calculated as follows:
  
-* `cp1`: symetric to previous segement cp2 around segment origin
+* `cp1`: symetric to previous segment cp2 around segment origin
 * `cp2`: from segment end towards segment cp1, same length as origin to cp1
 
 <TABLE>
