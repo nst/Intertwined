@@ -7,7 +7,7 @@ Threads (paths) are made of segments (Bezier curves) with their own z-depth.
 
 Segments are drawn in z-depth order, so that threads look Intertwined.
 
-Control points are either set explicitely by the caller, or computed according to specific rules.
+Control points are either set explicitly by the caller, or computed according to specific rules.
 
 Here are the drawing steps, starting from lowest z-depth, here for `Braid.py`.
 
@@ -39,13 +39,13 @@ __Control points logic__
  
 When not set by the caller, control points are calculated as follows:
  
-* `cp1`: symetric to previous segment cp2 around segment origin
+* `cp1`: symmetric to previous segment cp2 around segment origin
 * `cp2`: from segment end towards segment cp1, same length as origin to cp1
 
 <TABLE>
 
 <TR>
-    <TD>No control points are set explicitely on 1st segment s1.<BR />Control point s1.cp2 is computed as half s.p_s.o.<BR />Control point s2.cp1 (red) is computed according to previous segment s1.cp2 (green).<BR />Control point s2.cp2 is computed as s2.p_s2.cp1 with samed length as s2.cp1.<IMG SRC="Examples/vd_cp_none.png" /></TD>
+    <TD>No control points are set explicitely on 1st segment s1.<BR />Control point s1.cp2 is computed as half s.p_s.o.<BR />Control point s2.cp1 (red) is computed according to previous segment s1.cp2 (green).<BR />Control point s2.cp2 is computed as s2.p_s2.cp1 with same length as s2.cp1.<IMG SRC="Examples/vd_cp_none.png" /></TD>
     <TD valign="top"><PRE>t = cv.create_thread(o = (1,2))
 cv.arc_rel(t, 5, -1, 1)
 cv.arc_rel(t, 2, 5, 1)</PRE></TD>
