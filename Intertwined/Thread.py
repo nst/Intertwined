@@ -40,10 +40,10 @@ class Thread:
         self.pos = o
 
     def arc_rel(self, p, z, cp1=None, cp2=None, cp1_length=None):
-        assert(z < Thread.MAX_DEPTH)
         self.arc_to(self.pos[0] + p[0], self.pos[1] + p[1], z, cp1, cp2)
-        
+
     def arc_to(self, x, y, z, cp1=None, cp2=None):
+        assert(z < Thread.MAX_DEPTH)
         s = Segment(self.pos, (x,y), z, cp1, cp2)
         self.segments.append(s)
         self.segments_for_depth[z].append(s)
@@ -82,7 +82,6 @@ class Thread:
     def draw_segments_of_depth(self, z):
 
         if len(self.segments) == 0:
-            print("-- %s has no segments to draw for depth %d" % (self, z))
             return
 
         s0 = self.segments[0]

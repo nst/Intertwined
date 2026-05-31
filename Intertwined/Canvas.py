@@ -23,9 +23,9 @@ class Canvas:
         self.c.translate(self.MARGIN, self.MARGIN)
         self.threads = []
 
-    def __init__(self, NB_COLS, NB_ROWS, background_color=(1,1,1), col_size=20, row_size=20, palette=DEFAULT_PALETTE):
-        
-        self.palette = palette
+    def __init__(self, NB_COLS, NB_ROWS, background_color=(1,1,1), col_size=20, row_size=20, palette=None):
+
+        self.palette = list(Canvas.DEFAULT_PALETTE) if palette is None else palette
         self.threads = []
         
         self.RS = row_size
@@ -71,8 +71,8 @@ class Canvas:
                         s.debug_draw_point(self.c, s.cp1, (1,0,0)) 
                         s.debug_draw_point(self.c, s.cp2, (0,1,0))
             for s in t.segments:
-                if draw_depth and z <= Z:
-                    s.debug_write_point(self.c, s.o, "%d" % s.z) 
+                if draw_depth:
+                    s.debug_write_point(self.c, s.o, "%d" % s.z)
     
     def draw_grid(self, color=(0,0,0)):
     
@@ -95,7 +95,7 @@ class Canvas:
         self.c.restore()
 
     def canvas_to_surface(self, p, add_half_offset=False):
-        if not p:
+        if p is None:
             return None
         
         x = p[0] * self.CS + (self.CS/2. if add_half_offset else 0)

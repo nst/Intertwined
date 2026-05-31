@@ -5,9 +5,6 @@ class Segment:
 
     def __init__(self, o, p, z, cp1=None, cp2=None):
 
-        if cp2 == None:
-            pass
-
         self.o = o # origin
         self.p = p # point
         self.z = z # z-depth
@@ -21,7 +18,7 @@ class Segment:
     
         # from p towards cp1, same length as o_cp1
 
-        v = ((self.cp1[0] - self.p[0]), (self.cp1[1] - self.p[1])) # from cp1 to p
+        v = ((self.cp1[0] - self.p[0]), (self.cp1[1] - self.p[1])) # from p to cp1
         #v = ((self.o[0] - self.p[0]), (self.o[1] - self.p[1])) # another way to compute cp2
 
         length = self.norm(self.o, self.cp1)
@@ -30,11 +27,15 @@ class Segment:
             length = self.norm(self.o, self.p) / 2. # pure heuristic..
 
         v_norm = math.sqrt(v[0]**2 + v[1]**2)
-        
+
+        if v_norm < 0.0001 or length < 0.0001:
+            # degenerate: cp1 coincides with p, or segment has no extent
+            return self.p
+
         ratio = v_norm / length
-        
+
         (dx, dy) = (v[0]/ratio, v[1]/ratio)
-        
+
         return (self.p[0] + dx, self.p[1] + dy)
 
     def compute_cp1(self, pcp2):
