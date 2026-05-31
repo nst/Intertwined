@@ -104,10 +104,7 @@ class Canvas:
 
     def create_thread(self, o, ext_color=(0,0,0), int_color=None, ext_width=24, int_width=18, draw_ends=True):
 
-        if not ext_color:
-            ext_color = (0,0,0)
-
-        if not int_color:
+        if int_color is None:
             int_color = self.palette[len(self.threads) % len(self.palette)]
 
         t = Thread(self.c,
@@ -122,7 +119,7 @@ class Canvas:
         p_s = self.canvas_to_surface((col, row), add_half_offset=True)
         cp2_s = self.canvas_to_surface(cp2)
         cp1_s = self.canvas_to_surface(cp1)
-        t.arc_to(p_s[0], p_s[1], z, cp1_s, cp2_s)
+        t.arc_to(p_s, z, cp1_s, cp2_s)
 
     def arc_rel(self, t, col, row, z, cp1=None, cp2=None):
         p_s = self.canvas_to_surface((col, row))

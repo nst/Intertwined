@@ -29,11 +29,11 @@ class Segment:
         self.cp1 = cp1 # absolute pixel coords
         self.cp2 = cp2 # absolute pixel coords
 
-    def draw(self, ctx, width, color, line_cap):
+    def draw(self, ctx, width, color):
 
         ctx.save()
 
-        ctx.set_line_cap(line_cap)
+        ctx.set_line_cap(cairo.LINE_CAP_BUTT)
         ctx.set_line_width(width)
         ctx.set_source_rgb(*color)
 

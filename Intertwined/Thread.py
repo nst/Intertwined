@@ -11,16 +11,6 @@ class Thread:
 
     # knows only context (pixels) coordinates, not canvas ones
 
-    EXT_C = (0,0,0)
-    INT_C = (1,1,1)
-
-    EXT_W = 16
-    INT_W = 12
-
-    VISUAL_DEBUG = True
-
-    draw_ends = True
-
     def __init__(self, c, o, ext_color, int_color, ext_width, int_width, draw_ends):
 
         self.EXT_C = ext_color
@@ -35,12 +25,11 @@ class Thread:
 
         self.pos = o
 
-    def arc_rel(self, p, z, cp1=None, cp2=None, cp1_length=None):
-        self.arc_to(self.pos[0] + p[0], self.pos[1] + p[1], z, cp1, cp2)
+    def arc_rel(self, p, z, cp1=None, cp2=None):
+        self.arc_to((self.pos[0] + p[0], self.pos[1] + p[1]), z, cp1, cp2)
 
-    def arc_to(self, x, y, z, cp1=None, cp2=None):
+    def arc_to(self, p, z, cp1=None, cp2=None):
         o = self.pos
-        p = (x, y)
 
         # resolve cp1 to absolute
         if cp1 is not None:
@@ -103,6 +92,6 @@ class Thread:
             if s.z != z:
                 continue
             for _ in range(ext_repeat):
-                s.draw(self.c, self.EXT_W, self.EXT_C, cairo.LINE_CAP_BUTT)
+                s.draw(self.c, self.EXT_W, self.EXT_C)
             for _ in range(int_repeat):
-                s.draw(self.c, self.INT_W, self.INT_C, cairo.LINE_CAP_BUTT)
+                s.draw(self.c, self.INT_W, self.INT_C)
